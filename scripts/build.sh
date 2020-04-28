@@ -25,8 +25,9 @@ CODE_DIR=$(cd $SCRIPT_DIR/..; pwd)
 echo $CODE_DIR
 $DOCKER_CMD run --rm -v $HOME/.m2:/root/.m2 -v $CODE_DIR:/usr/src/mymaven -w /usr/src/mymaven maven:3.2-jdk-8 mvn -DskipTests package
 
-cp -r $CODE_DIR/docker $CODE_DIR/target/docker/
+cp -r $CODE_DIR/docker/ $CODE_DIR/target/docker/
 cp -r $CODE_DIR/target/*.jar $CODE_DIR/target/docker/${IMAGE}
+cp -r $CODE_DIR/newrelic $CODE_DIR/target/docker/${IMAGE}/newrelic
 
 REPO=${GROUP}/${IMAGE}
     $DOCKER_CMD build -t ${REPO}:${COMMIT} $CODE_DIR/target/docker/${IMAGE};
